@@ -15,23 +15,32 @@ const movie2 = {
 };
 
 // 1. Safely access movie2.director.name — should return undefined, not throw.
+const directorName2 = movie2.director?.name;
 
 // 2. Display the tagline of movie2, or "No tagline" if it is empty or missing.
-//    Use ||, not ??. The difference: ?? only falls back on null/undefined,
-//    so movie2.tagline ?? "No tagline" would return "" (empty string) instead of "No tagline".
+//    Use ||, not ??. The nullish operator only falls back on null/undefined,
+//    so it would return an empty string here instead of the fallback text.
 //    || falls back on any falsy value (null, undefined, "", 0, false), which is what you want here.
+const taglineDisplay = movie2.tagline || "No tagline";
 
 // 3. Safely get the name of the first cast member of movie2.
 //    Should return undefined, not throw.
+const firstCastName = movie2.cast?.[0]?.name;
 
 // 4. Display the first cast member's name of movie2, or "Unknown cast" as fallback.
 //    Combine ?. and ??
+const firstCastDisplay = movie2.cast?.[0]?.name ?? "Unknown cast";
 
 // 5. Write a function formatPosterUrl(movie) that:
 //    - returns the full TMDB poster URL if movie.poster_path exists and is not null
 //    - returns a placeholder URL otherwise
 //    TMDB poster format : https://image.tmdb.org/t/p/w500{poster_path}
 //    Placeholder        : https://placehold.co/500x750?text=No+Image
+function formatPosterUrl(movie) {
+  return movie.poster_path
+    ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+    : "https://placehold.co/500x750?text=No+Image";
+}
 
 const tmdbMovie        = { title: "Inception", poster_path: "/oYuLEt3zVCKq57qu2F8dT7NIa6f.jpg" };
 const tmdbMovieNoPoster = { title: "Obscure Film", poster_path: null };
