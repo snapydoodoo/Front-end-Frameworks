@@ -1,5 +1,5 @@
 import type { Movie } from '../types';
-import MovieCard from './movieCard';
+import MovieCard from './MovieCard';
 
 interface MovieListProps {
   movies: Movie[];
