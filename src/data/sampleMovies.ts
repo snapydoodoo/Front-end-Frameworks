@@ -1,7 +1,9 @@
+import type { Movie } from "../types";
+
 export const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p/w500";
 export const TMDB_BACKDROP_BASE = "https://image.tmdb.org/t/p/w1280";
 
-export const SAMPLE_MOVIES = [
+export const SAMPLE_MOVIES: Movie[] = [
   {
     adult: false,
     backdrop_path: "/qeQJx07rK2xm8SD2sJxFKhE7gs0.jpg",
