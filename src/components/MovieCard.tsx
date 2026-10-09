@@ -28,18 +28,19 @@ export default function MovieCard({ movie, onClick }: MovieCardProps) {
           <span className="rating-badge">⭐ {movie.vote_average.toFixed(1)}</span>
           <button
             className={`favorite-btn ${isFavourite ? 'active' : ''}`}
-            title="Add to Watchlist"
+            title={isFavourite ? 'Remove from Watchlist' : 'Add to Watchlist'}
+            aria-label={isFavourite ? 'Remove from favourites' : 'Add to favourites'}
             onClick={(e) => {
-              e.stopPropagation();
-              setIsFavourite((prev) => !prev);
+                e.stopPropagation();
+                setIsFavourite((prev) => !prev);
             }}
-          >
+            >
             ♥
-          </button>
+            </button>
         </div>
       </div>
       <div className="movie-card-info">
-        <h3 className="movie-card-title">{movie.title}</h3>
+        <h2 className="movie-card-title">{movie.title}</h2>
         <div className="movie-card-meta">
           <span>{movie.release_date.slice(0, 4)}</span>
           <span>{movie.vote_count} votes</span>

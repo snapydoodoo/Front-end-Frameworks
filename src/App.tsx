@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import type { Movie } from './types';
 import { SAMPLE_MOVIES } from './data/sampleMovies';
-import MovieList from './components/MovieList';
-import SearchBar from './components/SearchBar';
+import MovieList from './components/movieList';
+import SearchBar from './components/searchBar';
 
 export default function App() {
   const [movies] = useState<Movie[]>(SAMPLE_MOVIES);
