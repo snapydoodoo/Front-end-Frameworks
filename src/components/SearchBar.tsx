@@ -3,23 +3,37 @@ interface SearchBarProps {
   onChange: (value: string) => void;
 }
 
-export default function SearchBar({ query, onChange }: SearchBarProps) {
+// The .header-search wrapper now lives in App (see Session 4)
+const SearchBar = ({ query, onChange }: SearchBarProps) => {
   return (
-    <header className="navbar">
-      <h1 className="logo">CineGrid</h1>
-
+    <div className="search-input-wrapper">
+      <svg
+        className="search-icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={2}
+      >
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
       <input
-        className="search-input"
         type="text"
-        placeholder="Search movies..."
+        className="search-input"
+        placeholder="Search movies, plot keywords, titles..."
         value={query}
         onChange={(e) => onChange(e.target.value)}
       />
-
-      <div className="nav-actions">
-        <button className="nav-btn" title="Show favourites">♥</button>
-        <button className="nav-btn" title="Toggle theme">☾</button>
-      </div>
-    </header>
+      <button
+        className="search-clear-btn"
+        onClick={() => onChange("")}
+        title="Clear search"
+        type="button"
+      >
+        ✕
+      </button>
+    </div>
   );
-}
+};
+
+export default SearchBar;

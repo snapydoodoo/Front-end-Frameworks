@@ -1,31 +1,52 @@
-import { useState } from 'react';
-import type { Movie } from './types';
-import { SAMPLE_MOVIES } from './data/sampleMovies';
-import MovieList from './components/MovieList';
-import SearchBar from './components/SearchBar';
+import { useState } from "react";
+import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
+import SearchBar from "./components/SearchBar";
+import HomePage from "./pages/HomePage";
+import AboutPage from "./pages/AboutPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
-export default function App() {
-  const [movies] = useState<Movie[]>(SAMPLE_MOVIES);
-  const [query, setQuery] = useState('');
-  const [minRating, setMinRating] = useState(0);
-
-  // derived, NOT in state
-  const filteredMovies = movies.filter(
-    (m) =>
-      m.title.toLowerCase().includes(query.toLowerCase()) &&
-      m.vote_average >= minRating,
-  );
+const App = () => {
+  // App owns the search text; HomePage only receives it as a prop
+  const [searchQuery, setSearchQuery] = useState("");
 
   return (
-    <div className="app">
-      <SearchBar query={query} onChange={setQuery} />
-      <select value={minRating} onChange={(e) => setMinRating(Number(e.target.value))}>
-        <option value={0}>All ratings</option>
-        <option value={6}>6+</option>
-        <option value={7}>7+</option>
-        <option value={8}>8+</option>
-      </select>
-      <MovieList movies={filteredMovies} />
-    </div>
+    <BrowserRouter>
+      <div className="app-layout">
+        <header className="site-header">
+          <div className="header-inner">
+            <div className="header-left">
+              <div className="brand-logo">
+                <div className="logo-dot"></div>
+                <span className="logo-text">CINE&middot;GRID</span>
+              </div>
+              <nav className="header-nav">
+                <NavLink to="/" end>
+                  Home
+                </NavLink>
+                <NavLink to="/about">About</NavLink>
+              </nav>
+            </div>
+
+            <div className="header-search">
+              <SearchBar query={searchQuery} onChange={setSearchQuery} />
+            </div>
+
+            <div className="header-actions">
+              <button className="btn-icon-label">
+                <span>Watchlist</span>
+                <span className="count-badge">0</span>
+              </button>
+            </div>
+          </div>
+        </header>
+        <Routes>
+          <Route path="/" element={<HomePage searchQuery={searchQuery} />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
-}
+};
+
+export default App;
