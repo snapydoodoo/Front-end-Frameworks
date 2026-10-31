@@ -6,6 +6,7 @@ import {
   getPlaceholderPoster,
 } from "../data/sampleMovies";
 import { resolveGenreNames } from "../utils/genreNames";
+import { useAppContext } from "../context/AppContext";
 
 type MovieModalProps = {
   movie: Movie;
@@ -17,6 +18,8 @@ const MovieModal = ({ movie, genres, onClose }: MovieModalProps) => {
   // The overlay is invisible until it has the "active" class,
   // which we add one frame after mounting so the CSS transition plays.
   const [active, setActive] = useState(false);
+  const { toggleFavorite, isFavorite } = useAppContext();
+  const inWatchlist = isFavorite(movie.id);
 
   useEffect(() => {
     const frame = requestAnimationFrame(() => setActive(true));
@@ -136,6 +139,19 @@ const MovieModal = ({ movie, genres, onClose }: MovieModalProps) => {
             </div>
 
             <div className="modal-footer-actions">
+              <button className="btn-primary" onClick={() => toggleFavorite(movie)}>
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill={inWatchlist ? "#ffffff" : "none"}
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.78-8.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+                <span>{inWatchlist ? "In Watchlist" : "Add to Watchlist"}</span>
+              </button>
               <a
                 href={`https://www.youtube.com/results?search_query=${trailerQuery}`}
                 target="_blank"

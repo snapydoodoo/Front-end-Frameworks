@@ -1,7 +1,7 @@
-import { useState } from "react";
 import type { Genre, Movie } from "../types";
 import { getPosterUrl, getPlaceholderPoster } from "../data/sampleMovies";
 import { resolveGenreNames } from "../utils/genreNames";
+import { useAppContext } from "../context/AppContext";
 
 interface MovieCardProps {
   movie: Movie;
@@ -10,7 +10,8 @@ interface MovieCardProps {
 }
 
 const MovieCard = ({ movie, genres, onMovieClick }: MovieCardProps) => {
-  const [isFavourite, setIsFavourite] = useState(false);
+  const { toggleFavorite, isFavorite } = useAppContext();
+  const isFavourite = isFavorite(movie.id);
 
   const releaseYear = movie.release_date
     ? new Date(movie.release_date).getFullYear()
@@ -19,7 +20,7 @@ const MovieCard = ({ movie, genres, onMovieClick }: MovieCardProps) => {
   const handleFavouriteClick = (e: React.MouseEvent) => {
     // don't let the click bubble up and open the modal
     e.stopPropagation();
-    setIsFavourite((prev) => !prev);
+    toggleFavorite(movie);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
