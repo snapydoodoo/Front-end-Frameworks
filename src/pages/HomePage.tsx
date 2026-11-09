@@ -4,6 +4,7 @@ import { useMovies } from "../hooks/useMovies";
 import { useGenres } from "../hooks/useGenres";
 import MovieList from "../components/MovieList";
 import MovieModal from "../components/MovieModal";
+import SurpriseMe from "../components/SurpriseMe";
 
 interface HomePageProps {
   searchQuery?: string;
@@ -31,11 +32,18 @@ const HomePage = ({ searchQuery = "" }: HomePageProps) => {
       {loading && <p>Loading...</p>}
       {error && <p>Something went wrong. {error}</p>}
       {!loading && !error && (
-        <MovieList
-          movies={filteredMovies}
-          genres={genres}
-          onMovieClick={setSelectedMovie}
-        />
+        <>
+          <SurpriseMe
+            movies={movies}
+            genres={genres}
+            onPick={setSelectedMovie}
+          />
+          <MovieList
+            movies={filteredMovies}
+            genres={genres}
+            onMovieClick={setSelectedMovie}
+          />
+        </>
       )}
       {selectedMovie && (
         <MovieModal

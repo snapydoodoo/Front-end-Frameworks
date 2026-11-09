@@ -1045,3 +1045,33 @@ select {
   color: var(--text-main);
   background-color: var(--bg-pill);
 }
+/* Surprise me (Final boss) */
+.surprise-me {
+  margin-bottom: 28px;
+}
+
+.surprise-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.95rem;
+}
+
+.surprise-text span {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+.surprise-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.surprise-message {
+  flex-basis: 100%;
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
